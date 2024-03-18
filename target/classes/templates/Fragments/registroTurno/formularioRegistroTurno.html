@@ -1,0 +1,28 @@
+<div class="col-lg-4 offset-lg-1 col-md-12 order-lg-2">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <div class="mb-6 text-center">
+                <h3 class="mb-0">Registre su turno</h3>
+            </div>
+            <form class="row g-3 needs-validation" novalidate="">
+                <div class="col-md-12">
+                    <label for="eventSingleJobTitleInput" class="form-label">
+                        Tratamientos
+                        <span class="text-danger">*</span>
+                    </label>
+                    <div th:each="tratamiento : ${tratamientos}" class="form-select" id="eventSingleJobTitleInput" aria-label="Job Title" required>
+                        <input type="checkbox" th:id="${tratamiento.id}" th:name="tratamientos" th:text="${tratamiento.nombre}">Nombre tratamiento</input>
+                    </div>
+
+                    <!-- INVALIDO -->
+                    <div class="invalid-feedback">Invalido!</div>
+
+                </div>
+                <div class="d-grid">
+                    <button class="btn btn-primary" type="submit">Registrar Turno</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--event form-->

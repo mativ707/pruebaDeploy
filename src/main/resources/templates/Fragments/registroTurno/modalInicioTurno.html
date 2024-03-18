@@ -1,0 +1,53 @@
+<div class="modal fade" id="modalInicioTurno" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+     tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Turno</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p th:if="${turnoPendiente != null}" th:text="'Tiene un turno pendiente en fecha: ' + ${turnoPendiente.fechaTurno}">Detalles del turno</p>
+                <p th:if="${turnoPendiente == null}">No tiene turnos pendientes!</p>
+            </div>
+            <div class="modal-footer">
+                <button th:if="${turnoPendiente != null}" class="btn btn-primary" data-bs-target="#modalInicioTurno2"
+                        data-bs-toggle="modal">Información del turno
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL 2 -->
+<div th:if="${turnoPendiente != null}" class="modal fade" id="modalInicioTurno2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"
+     tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Turno</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-borderless">
+                    <thead>
+                    <tr>
+                        <th scope="col">Hora Inicio</th>
+                        <th scope="col">Hora Fin</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td scope="row" th:text="${turnoPendiente.horaInicio}">hora inicio info</td>
+                        <td colspan="2" th:text="${turnoPendiente.horaFin}">hora fin info</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-bs-target="#modalInicioTurno" data-bs-toggle="modal">Atrás
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

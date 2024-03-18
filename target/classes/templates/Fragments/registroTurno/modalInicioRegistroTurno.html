@@ -1,0 +1,35 @@
+<div class="modal fade" id="modalRegistroTurno" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+     tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Registro de Turno</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="row g-2 d-flex mx-lg-7"
+                      th:action="@{/turnos/comprobarDisponibilidad}"
+                      method="post">
+
+                    <div class="col-md-9 col-12">
+                        <label for="fecha" class="visually-hidden"></label>
+                        <input type="date" id="fecha" class="form-control" name="fechaTurno" placeholder="Fecha"
+                               th:min="${#temporals.format(#temporals.createNow().plusDays(1), 'yyyy-MM-dd')}"
+                               th:max="${#temporals.format(#temporals.createNow().plusDays(3), 'yyyy-MM-dd')}"/>
+                        <div class="invalid-feedback text-start">Fecha</div>
+                    </div>
+
+                    <div class="list-group">
+                        <label class="list-group-item" th:each="tratamiento : ${tratamientos}">
+                            <input class="form-check-input me-1" type="checkbox" th:value="${tratamiento.id}" id="firstCheckbox" name="idDuracionTratamientos">
+                            <label class="form-check-label" for="firstCheckbox" th:text="${tratamiento.nombre}">Tratamiento</label>
+                        </label>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-dark" type="submit">Comprobar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Tratamientos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+<!--NAVBAR-->
+<nav th:replace="/Fragments/navbar :: nav" sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_USER')"></nav>
+
+    <div class="container">
+        <!-- MENSAJE DE ERROR -->
+        <div th:if="${error != null}" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Alerta</strong>
+            <p th:text="${error}">
+                You should check in on some of those fields below.
+            </p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <!--MENSAJE DE EXITO-->
+        <div th:if="${exito != null}" class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Mensaje</strong>
+            <p th:text="${exito}">
+                You should check in on some of those fields below.
+            </p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <div class="shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+            <h3>Tratamientos</h3>
+            <table class="table">
+
+                <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Descripcion</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Duracion hs.</th>
+                    <th class="d-flex justify-content-center"><button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#registroModalTratamiento" data-bs-whatever="@getbootstrap">Registrar tratamiento</button>
+                    </th>
+                </tr>
+                </thead>
+
+                <tbody th:each="tratamiento : ${tratamientos}">
+
+                <tr>
+                    <th scope="row" th:text="${tratamiento.id}">Id</th>
+                    <td th:text="${tratamiento.nombre}">Nombre Tratamiento</td>
+                    <td th:text="${tratamiento.descripcion}">Descripcion tratamiento</td>
+                    <td th:text="${tratamiento.precio}">Precio tratamiento</td>
+                    <td th:text="${tratamiento.duracion}">Duracion tratamiento</td>
+                    <td>
+                        <div class="d-flex justify-content-center">
+                            <div class="btn-group btn-group-sm" role="group" aria-label="Small button group">
+                                <a th:href="@{/admin/editarTrat/{id} (id=${tratamiento.id})}">
+                                    <button type="submit" class="btn btn-outline-primary">Editar</button>
+                                </a>
+                                <form th:action="@{/admin/deleteTratamiento/{id} (id=${tratamiento.id})}" method="post">
+                                    <button type="submit" class="btn btn-outline-primary">Eliminar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <!-- MODAL REGISTRO TRATAMIENTO -->
+    <div th:replace="/Fragments/registroTratamiento/modalRegistroTratamiento :: div"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+
+<body>
+
+<!--NAVBAR-->
+<nav th:replace="/Fragments/navbar :: nav" sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_USER')"></nav>
+
+<div class="container">
+    <main>
+        <div style="background-color: white" class="container">
+            <!-- MENSAJE DE EXITO -->
+            <div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3 mensajeExito" >
+                <div class="card-body">
+                    <h5 class="card-title">Exito!</h5>
+                    <p class="card-text" th:text="${exito}"></p>
+                </div>
+            </div>
+            <!-- MENSAJE DE ERROR -->
+            <div th:if="${error != null}" class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Alerta</strong>
+                <p th:text="${error}">
+                    You should check in on some of those fields below.
+                </p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+
+            <!-- CARROUSEL -->
+            <div th:replace="/Fragments/carrousel :: div"></div>
+
+            <!-- REGISTRO TURNO -->
+            <div th:replace="/Fragments/registroTurno/inicioRegistroTurno :: div"></div>
+        </div>
+        <!--MODAL INFO TURNO -->
+        <div th:replace="/Fragments/registroTurno/modalInicioTurno :: div"></div>
+    </main>
+
+    <footer th:replace="/Fragments/footer :: div"></footer>
+</div>
+
+<!--BOOTSTRAP -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>

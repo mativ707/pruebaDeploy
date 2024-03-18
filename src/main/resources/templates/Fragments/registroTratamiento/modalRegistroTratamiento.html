@@ -1,0 +1,37 @@
+<div class="modal fade" id="registroModalTratamiento" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Registrar Tratamiento</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{/admin/saveTratamiento}" method="post" th:object="${tratamiento}">
+
+                    <input type="hidden" class="form-control" id="id" th:field="*{id}">
+
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Nombre:</label>
+                        <input type="text" class="form-control" id="recipient-name" th:field="*{nombre}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="message-text" class="col-form-label">Descripcion:</label>
+                        <textarea class="form-control" id="message-text" th:field="*{descripcion}"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="recipient-precio" class="col-form-label">Precio:</label>
+                        <input type="number" class="form-control" id="recipient-precio" th:field="*{precio}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="recipient-duracion" class="col-form-label">Duracion hs:</label>
+                        <input type="number" class="form-control" id="recipient-duracion" th:field="*{duracion}">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Registrar Tratamiento</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

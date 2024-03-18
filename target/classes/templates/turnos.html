@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Turnos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+<!--NAVBAR-->
+<nav th:replace="/Fragments/navbar :: nav" sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_USER')"></nav>
+
+<main>
+
+    <div class="container">
+        <h3>Historial de turnos registrados</h3>
+        <!--MENSAJE DE EXITO-->
+        <div th:if="${exito != null}" class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Mensaje</strong>
+            <p th:text="${exito}">
+                You should check in on some of those fields below.
+            </p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <!-- MENSAJE DE ERROR -->
+        <div th:if="${error != null}" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Alerta</strong>
+            <p th:text="${error}">
+                You should check in on some of those fields below.
+            </p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <div class="shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">DNI cliente</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">ADMIN</th>
+                </tr>
+                </thead>
+
+                <tbody th:each="turno : ${turnos}">
+                <tr>
+                    <th scope="row" th:text="${turno.id}">Id</th>
+                    <td th:text="${turno.fechaTurno}">Fecha turno</td>
+                    <td th:text="${turno.dniCliente}">Dni cliente</td>
+                    <td th:text="${turno.estado}">Estado</td>
+                    <td>
+                        <div class="btn-group btn-group-sm" role="group" aria-label="Small button group">
+                            <form th:action="@{/admin/cerrarTurno/{id} (id=${turno.id})}" method="post">
+                                <button type="submit" class="btn btn-outline-primary">Cerrar turno</button>
+                            </form>
+                            <form th:action="@{/admin/eliminarTurno/{id} (id=${turno.id})}" method="post">
+                                <button type="submit" class="btn btn-outline-primary">Eliminar turno</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
